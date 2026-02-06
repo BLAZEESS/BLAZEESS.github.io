@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dimas Fahri | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://i.ibb.co.com/xZc4X0r/cc25b99c-550f-49b2-8a8f-bc9b5cd8c9b3.png">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; color: #334155; }
+        .page { display: none; opacity: 0; transition: opacity 0.3s ease-in-out; }
+        .page.active { display: block; opacity: 1; }
+        ::-webkit-scrollbar { width: 0px; }
+        .nav-item.active { background-color: #f8fafc; color: #0f172a; font-weight: 700; border-right: 2px solid #0f172a; }
+        .mobile-nav-link.active { color: #0f172a; font-weight: 700; }
+        .mobile-nav-link.active i { transform: scale(1.1); transition: transform 0.2s; }
+        .input-clean { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px; outline: none; transition: 0.2s; background: #f8fafc; }
+        .input-clean:focus { border-color: #0f172a; background: #fff; }
+        .btn-primary { background: #0f172a; color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+        .btn-primary:hover { background: #1e293b; }
+        .btn-danger { background: #fee2e2; color: #ef4444; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 12px; cursor: pointer; }
+        .btn-danger:hover { background: #fecaca; }
+        .modal-enter { animation: modalIn 0.2s ease-out forwards; }
+        @keyframes modalIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <div class="flex min-h-screen">
+        <aside class="hidden md:flex w-72 border-r border-gray-100 p-8 flex-col justify-between fixed h-full bg-white z-40">
+            <div>
+                <div class="flex items-center gap-4 mb-12">
+                    <img id="sb-avatar" src="" class="w-12 h-12 rounded-full object-cover border border-gray-100 shadow-sm">
+                    <div>
+                        <h2 id="sb-name" class="font-bold text-slate-900 leading-tight">Loading...</h2>
+                        <span class="text-[10px] text-slate-400 font-bold tracking-widest uppercase">Graphic Designer</span>
+                    </div>
+                </div>
+                <nav class="space-y-1">
+                    <a href="#home" class="nav-item flex items-center gap-3 px-4 py-3 text-slate-500 rounded hover:bg-slate-50 transition">
+                        <i class="fa-solid fa-house w-5 text-center"></i> <span class="text-sm">Home</span>
+                    </a>
+                    <a href="#about" class="nav-item flex items-center gap-3 px-4 py-3 text-slate-500 rounded hover:bg-slate-50 transition">
+                        <i class="fa-solid fa-user w-5 text-center"></i> <span class="text-sm">About</span>
+                    </a>
+                    <a href="#projects" class="nav-item flex items-center gap-3 px-4 py-3 text-slate-500 rounded hover:bg-slate-50 transition">
+                        <i class="fa-solid fa-layer-group w-5 text-center"></i> <span class="text-sm">Projects</span>
+                    </a>
+                    <a href="#contact" class="nav-item flex items-center gap-3 px-4 py-3 text-slate-500 rounded hover:bg-slate-50 transition">
+                        <i class="fa-solid fa-paper-plane w-5 text-center"></i> <span class="text-sm">Contact</span>
+                    </a>
+                </nav>
+            </div>
+            <div class="pt-6 border-t border-gray-50">
+                <div id="admin-panel" class="hidden flex-col gap-2">
+                    <button onclick="openModal('save')" class="w-full py-2 bg-emerald-600 text-white text-xs rounded font-bold hover:bg-emerald-700">
+                        <i class="fa-solid fa-cloud-arrow-up mr-1"></i> SAVE TO SERVER
+                    </button>
+                    <button onclick="logout()" class="w-full py-2 text-red-500 text-xs hover:bg-red-50 rounded font-bold">Logout</button>
+                </div>
+                <button id="btn-login-trigger" onclick="openModal('login')" class="flex items-center gap-2 text-xs text-slate-300 hover:text-slate-500 transition ml-2">
+                    <i class="fa-solid fa-lock"></i> Admin Area
+                </button>
+            </div>
+        </aside>
+
+        <main class="md:ml-72 flex-1 p-8 md:p-16 pb-24 max-w-5xl mx-auto w-full relative">
+            <section id="home" class="page active">
+                <div class="h-[70vh] flex flex-col justify-center">
+                    <div class="w-16 h-1 bg-slate-900 mb-8"></div>
+                    <h1 class="text-5xl md:text-7xl font-bold text-slate-900 mb-6 tracking-tight leading-tight">
+                        Visual <span class="text-slate-300">Storyteller.</span>
+                    </h1>
+                    <p id="hero-bio" class="text-lg text-slate-500 mb-8 max-w-lg leading-relaxed"></p>
+                    <div class="flex gap-4">
+                        <a href="#projects" class="btn-primary">Lihat Karya</a>
+                        <a href="#contact" class="px-6 py-2.5 border border-slate-200 text-slate-900 text-sm font-bold rounded-lg hover:bg-slate-50 transition">Kontak Saya</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="page">
+                <div class="flex justify-between items-center mb-10 pb-4 border-b border-gray-100">
+                    <h2 class="text-3xl font-bold text-slate-900">About Me</h2>
+                    <button onclick="openForm('editBio')" class="admin-only hidden text-xs text-blue-600 font-bold"><i class="fa-solid fa-pen"></i> Edit Header</button>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-12">
+                    <div class="md:col-span-1">
+                        <div class="relative group rounded-xl overflow-hidden aspect-[3/4] bg-slate-100">
+                            <img id="about-img" src="" class="w-full h-full object-cover">
+                            <div class="admin-only hidden absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <button onclick="triggerUpload('about')" class="bg-white px-3 py-1.5 rounded-lg text-xs font-bold">
+                                    <i class="fa-solid fa-camera"></i> Ganti Foto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2 space-y-10">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-bold text-slate-900 text-lg">Who am I?</h3>
+                                <button onclick="openForm('editAboutMe')" class="admin-only hidden text-xs bg-slate-100 px-2 py-1 rounded text-slate-600"><i class="fa-solid fa-pen"></i></button>
+                            </div>
+                            <p id="about-me-text" class="text-slate-600 leading-relaxed text-justify"></p>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-bold text-slate-900 text-lg">Experience</h3>
+                                <button onclick="openForm('addExp')" class="admin-only hidden text-xs bg-slate-100 px-2 py-1 rounded text-slate-600"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                            <div id="exp-list" class="space-y-10 border-l border-slate-200 pl-6 ml-2"></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-bold text-slate-900 text-lg">Education</h3>
+                                <button onclick="openForm('addEdu')" class="admin-only hidden text-xs bg-slate-100 px-2 py-1 rounded text-slate-600"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                            <div id="edu-list" class="space-y-4"></div>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                            <h3 class="font-bold text-xs text-slate-900 uppercase tracking-widest mb-4">Skills</h3>
+                            <div id="skills-list" class="flex flex-wrap gap-2"></div>
+                            <button onclick="openForm('editSkills')" class="admin-only hidden mt-4 text-xs text-blue-600 font-bold">Edit Skills</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="page">
+                <div class="flex justify-between items-end mb-10 pb-4 border-b border-gray-100">
+                    <div>
+                        <h2 class="text-3xl font-bold text-slate-900">Projects / Portofolio</h2>
+                        <p class="text-slate-400 text-sm mt-1"></p>
+                    </div>
+                    <button onclick="openForm('addProject')" class="admin-only hidden btn-primary text-xs"><i class="fa-solid fa-plus"></i> New Project</button>
+                </div>
+                <div id="project-grid" class="grid md:grid-cols-2 lg:grid-cols-2 gap-8"></div>
+            </section>
+
+            <section id="contact" class="page">
+                <div class="flex justify-between items-center mb-10 pb-4 border-b border-gray-100">
+                    <h2 class="text-3xl font-bold text-slate-900">Get in Touch</h2>
+                    <button onclick="openForm('editContact')" class="admin-only hidden text-xs text-blue-600 font-bold"><i class="fa-solid fa-pen"></i> Edit</button>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <p class="text-slate-600 mb-8 leading-relaxed">Silakan hubungi saya melalui Email atau WhatsApp untuk kolaborasi.</p>
+                        <div id="contact-display" class="space-y-4"></div>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-xl border border-slate-100 text-center flex flex-col items-center justify-center">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm mb-4 text-slate-900 text-2xl">
+                            <i class="fa-regular fa-comment-dots"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900">Let's Talk</h3>
+                        <p class="text-slate-500 text-sm mt-2">Saya siap mewujudkan ide kreatif Anda.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <input type="file" id="global-file-upload" class="hidden" accept="image/jpeg, image/png, image/jpg" onchange="handleFileUpload(this)">
+
+    <nav class="md:hidden fixed bottom-0 w-full bg-white/95 backdrop-blur border-t border-slate-100 z-50 flex justify-around items-center py-3 px-2">
+        <a href="#home" class="mobile-nav-link flex flex-col items-center gap-1 text-slate-400 text-xs">
+            <i class="fa-solid fa-house text-lg"></i> Home
+        </a>
+        <a href="#about" class="mobile-nav-link flex flex-col items-center gap-1 text-slate-400 text-xs">
+            <i class="fa-solid fa-user text-lg"></i> About
+        </a>
+        <a href="#projects" class="mobile-nav-link flex flex-col items-center gap-1 text-slate-400 text-xs">
+            <i class="fa-solid fa-layer-group text-lg"></i> Projects
+        </a>
+        <a href="#contact" class="mobile-nav-link flex flex-col items-center gap-1 text-slate-400 text-xs">
+            <i class="fa-solid fa-paper-plane text-lg"></i> Contact
+        </a>
+        <div class="w-10 h-10 rounded-full overflow-hidden border border-slate-200 flex-shrink-0">
+             <img id="mobile-avatar" src="" class="w-full h-full object-cover">
+        </div>
+    </nav>
+
+    <div id="modal-login" class="fixed inset-0 z-[60] hidden bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-xs p-6 rounded-xl shadow-2xl modal-enter">
+            <h3 class="text-lg font-bold text-slate-900 mb-4 text-center">Admin Access</h3>
+            <input type="text" id="login-user" placeholder="Username" class="input-clean mb-2">
+            <input type="password" id="login-pass" placeholder="Password" class="input-clean mb-4">
+            <button onclick="login()" class="btn-primary w-full mb-2">Login</button>
+            <button onclick="closeModal('login')" class="w-full text-slate-400 text-xs hover:text-slate-600">Cancel</button>
+        </div>
+    </div>
+
+    <div id="modal-save" class="fixed inset-0 z-[60] hidden bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-xs p-6 rounded-xl shadow-2xl modal-enter">
+            <h3 class="text-lg font-bold text-slate-900 mb-4 text-center">Confirm Save</h3>
+            <p class="text-xs text-slate-500 mb-4 text-center">Masukkan password admin untuk menyimpan perubahan ke server.</p>
+            <input type="password" id="save-pass" placeholder="Admin Password" class="input-clean mb-4">
+            <button onclick="saveDataToServer()" class="btn-primary w-full mb-2">Simpan Perubahan</button>
+            <button onclick="closeModal('save')" class="w-full text-slate-400 text-xs hover:text-slate-600">Batal</button>
+        </div>
+    </div>
+
+    <div id="modal-project" class="fixed inset-0 z-[60] hidden bg-white/95 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-4xl h-[90vh] rounded-xl shadow-2xl border border-slate-100 flex flex-col md:flex-row overflow-hidden modal-enter relative">
+            <div class="md:w-1/2 bg-slate-100 relative group">
+                <div class="relative w-full h-64 md:h-full group/img cursor-pointer" onclick="openLightboxFromProject()">
+                    <div id="p-img-display" class="w-full h-full bg-cover bg-center"></div>
+                    <div class="absolute inset-0 bg-black/0 group-hover/img:bg-black/20 transition flex items-center justify-center pointer-events-none">
+                        <i class="fa-solid fa-expand text-white opacity-0 group-hover/img:opacity-100 transform scale-50 group-hover/img:scale-100 transition duration-300 drop-shadow-lg text-4xl"></i>
+                    </div>
+                </div>
+                <div class="admin-only hidden absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center pointer-events-auto">
+                    <button onclick="triggerUpload('project')" class="bg-white px-4 py-2 rounded-lg font-bold text-xs shadow hover:bg-slate-50">
+                        <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Ganti Foto
+                    </button>
+                </div>
+            </div>
+            <div class="md:w-1/2 p-8 overflow-y-auto flex flex-col">
+                <div class="flex justify-between items-start mb-2">
+                    <span id="p-cat-display" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">CATEGORY</span>
+                    <button onclick="closeModal('project')" class="text-slate-400 hover:text-slate-900 transition"><i class="fa-solid fa-xmark text-2xl"></i></button>
+                </div>
+                
+                <h2 id="p-title-display" class="text-2xl md:text-3xl font-bold text-slate-900 mb-4 leading-tight">Title</h2>
+                <div class="admin-only hidden mb-6 space-x-2">
+                    <button onclick="openForm('editProjectMeta')" class="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded hover:bg-slate-200">Edit Info</button>
+                    <button onclick="confirmAction('Hapus project ini?', deleteProject)" class="text-xs bg-red-50 text-red-600 px-3 py-1.5 rounded hover:bg-red-100">Delete</button>
+                </div>
+
+                <p id="p-desc-display" class="text-slate-600 leading-relaxed mb-8 text-sm text-justify"></p>
+
+                <div class="mt-auto pt-6 border-t border-slate-50">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-xs uppercase tracking-widest text-slate-900">Link & Dokumentasi</h4>
+                        <button onclick="openForm('addDoc')" class="admin-only hidden text-[10px] bg-slate-900 text-white px-2 py-1 rounded"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                    <div id="p-docs-list" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-lightbox" class="fixed inset-0 z-[100] hidden bg-black/95 backdrop-blur-md flex-col items-center justify-center overflow-hidden touch-none">
+        <div class="absolute top-0 left-0 w-full p-4 z-50 flex justify-between items-center bg-gradient-to-b from-black/50 to-transparent">
+            <span class="text-white/80 text-xs font-bold tracking-widest uppercase ml-2">Image Viewer</span>
+            <div class="flex gap-6 mr-2">
+                <button onclick="zoomImage(0.2)" class="text-white hover:text-blue-400 transition" title="Zoom In">
+                    <i class="fa-solid fa-magnifying-glass-plus fa-xl"></i>
+                </button>
+                <button onclick="zoomImage(-0.2)" class="text-white hover:text-blue-400 transition" title="Zoom Out">
+                    <i class="fa-solid fa-magnifying-glass-minus fa-xl"></i>
+                </button>
+                <button onclick="resetZoom()" class="text-white hover:text-blue-400 transition" title="Reset">
+                    <i class="fa-solid fa-compress fa-xl"></i>
+                </button>
+                <button onclick="closeModal('lightbox')" class="text-white hover:text-red-500 transition ml-4" title="Close">
+                    <i class="fa-solid fa-xmark fa-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="lightbox-container" class="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing overflow-hidden" 
+             onmousedown="startDrag(event)" 
+             onmousemove="drag(event)" 
+             onmouseup="endDrag()" 
+             onmouseleave="endDrag()"
+             ontouchstart="handleTouchStart(event)"
+             ontouchmove="handleTouchMove(event)"
+             ontouchend="endDrag()"
+             onwheel="handleWheel(event)">
+            <img id="lightbox-img" src="" class="max-w-[95vw] max-h-[85vh] object-contain transition-transform duration-100 ease-linear shadow-2xl select-none" draggable="false">
+        </div>
+    </div>
+
+    <div id="modal-form" class="fixed inset-0 z-[70] hidden bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md p-6 rounded-xl shadow-2xl modal-enter">
+            <h3 id="form-title" class="text-lg font-bold text-slate-900 mb-4">Edit Data</h3>
+            <div id="form-inputs" class="space-y-3 mb-6"></div>
+            <div class="flex gap-3">
+                <button id="form-submit" class="btn-primary flex-1">Simpan</button>
+                <button onclick="closeModal('form')" class="flex-1 py-2 text-slate-500 text-sm hover:bg-slate-50 rounded">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-alert" class="fixed inset-0 z-[80] hidden bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm p-6 rounded-xl shadow-2xl text-center modal-enter">
+            <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-900 text-xl">
+                <i class="fa-solid fa-info"></i>
+            </div>
+            <p id="alert-msg" class="text-slate-700 font-medium mb-6">Message</p>
+            <button onclick="closeModal('alert')" class="btn-primary w-full">OK</button>
+        </div>
+    </div>
+
+    <div id="modal-confirm" class="fixed inset-0 z-[80] hidden bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm p-6 rounded-xl shadow-2xl text-center modal-enter">
+            <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 text-red-500 text-xl">
+                <i class="fa-solid fa-question"></i>
+            </div>
+            <p id="confirm-msg" class="text-slate-700 font-medium mb-6">Are you sure?</p>
+            <div class="flex gap-3">
+                <button id="confirm-yes" class="btn-danger flex-1">Ya, Lanjutkan</button>
+                <button onclick="closeModal('confirm')" class="flex-1 py-2 text-slate-500 text-sm hover:bg-slate-50 rounded">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "https://fahri.hs.vc/api.php";
+        const IMGBB_API_KEY = "d1602e2ff8730e2809c19e412e39cb07"; 
+
+        let data = {};
+        let isAdmin = false;
+        let currentId = null;
+        let tempAction = null;
+        let uploadContext = { type: '', index: null };
+
+        let scale = 1;
+        let pX = 0;
+        let pY = 0;
+        let isDragging = false;
+        let startX, startY;
+
+        async function loadData() {
+            try {
+                const response = await fetch(API_URL + "?t=" + new Date().getTime());
+                const json = await response.json();
+                if(json) {
+                    data = json;
+                    if(!data.profile.aboutImage) data.profile.aboutImage = "https://via.placeholder.com/400x500";
+                    if(!data.profile.aboutMe) data.profile.aboutMe = "Halo! Saya adalah seorang profesional yang berdedikasi. Tuliskan deskripsi lengkap tentang diri Anda di sini.";
+                    renderAll();
+                    updateActiveNav();
+                }
+            } catch (error) {
+                showAlert('Gagal memuat data dari server.');
+            }
+        }
+
+        async function saveDataToServer() {
+            const pass = document.getElementById('save-pass').value;
+            if(!pass) return showAlert("Masukkan password!");
+
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: pass, data: data })
+                });
+                const result = await res.json();
+                if(result.status === 'success') {
+                    showAlert("Data berhasil disimpan di Server!");
+                    closeModal('save');
+                } else {
+                    showAlert("Gagal: " + result.message);
+                }
+            } catch (error) {
+                showAlert("Error koneksi: " + error);
+            }
+        }
+
+        function renderAll() {
+            document.getElementById('sb-name').innerText = data.profile.name;
+            document.getElementById('sb-avatar').src = data.profile.avatar;
+            document.getElementById('mobile-avatar').src = data.profile.avatar;
+            document.getElementById('hero-bio').innerText = data.profile.bio;
+            document.getElementById('about-img').src = data.profile.aboutImage;
+            document.getElementById('about-me-text').innerText = data.profile.aboutMe;
+
+            const expList = document.getElementById('exp-list');
+            expList.innerHTML = '';
+            data.experience.forEach((e, i) => {
+                let imagesHtml = '';
+                if(e.images && e.images.length > 0) {
+                    imagesHtml = `<div class="flex gap-2 mt-4 overflow-x-auto pb-2">`;
+                    e.images.forEach((img, imgIdx) => {
+                        imagesHtml += `
+                            <div onclick="openLightbox('${img}')" class="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden group cursor-pointer hover:ring-2 hover:ring-offset-1 hover:ring-blue-500 transition">
+                                <img src="${img}" class="w-full h-full object-cover">
+                                ${isAdmin ? `<button onclick="event.stopPropagation(); confirmAction('Hapus gambar ini?', () => delExpImage(${i}, ${imgIdx}))" class="absolute inset-0 bg-black/50 text-white opacity-0 group-hover:opacity-100 flex items-center justify-center text-xs"><i class="fa-solid fa-trash"></i></button>` : ''}
+                            </div>
+                        `;
+                    });
+                    imagesHtml += `</div>`;
+                }
+
+                expList.innerHTML += `
+                    <div class="relative pb-8 last:pb-0">
+                        <span class="absolute -left-[33px] top-1 w-4 h-4 bg-slate-900 rounded-full border-2 border-white"></span>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-lg">${e.role}</h4>
+                                <p class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">${e.company}</p>
+                            </div>
+                            ${isAdmin ? `<button onclick="confirmAction('Hapus pengalaman ini?', () => delExp(${i}))" class="text-red-400 text-xs hover:bg-red-50 p-1 rounded"><i class="fa-solid fa-trash"></i></button>` : ''}
+                        </div>
+                        <p class="text-slate-600 leading-relaxed text-sm text-justify">${e.desc}</p>
+                        ${imagesHtml}
+                        ${isAdmin ? `<div class="mt-2 flex gap-2">
+                            <button onclick="openForm('editExp', ${i})" class="text-xs text-blue-500 font-bold">Edit Teks</button>
+                            <button onclick="triggerUpload('exp', ${i})" class="text-xs text-emerald-600 font-bold">+ Gambar</button>
+                        </div>` : ''}
+                    </div>`;
+            });
+
+            const eduList = document.getElementById('edu-list');
+            eduList.innerHTML = '';
+            data.education.forEach((e, i) => {
+                eduList.innerHTML += `
+                    <div class="flex justify-between items-center p-4 bg-slate-50 rounded-xl border border-slate-100">
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wide mb-1">${e.year}</span>
+                            <span class="font-bold text-slate-900 block">${e.school}</span>
+                            <span class="text-sm text-slate-500">${e.detail}</span>
+                        </div>
+                        ${isAdmin ? `<button onclick="confirmAction('Hapus pendidikan ini?', () => delEdu(${i}))" class="text-red-400 text-xs hover:bg-red-50 p-2 rounded"><i class="fa-solid fa-trash"></i></button>` : ''}
+                    </div>`;
+            });
+
+            const skillList = document.getElementById('skills-list');
+            skillList.innerHTML = data.profile.skills.map(s => `<span class="px-3 py-1.5 bg-white border border-slate-200 text-xs font-bold text-slate-600 rounded-lg">${s}</span>`).join('');
+
+            const projGrid = document.getElementById('project-grid');
+            projGrid.innerHTML = '';
+            if (data.projects.length === 0) {
+                projGrid.innerHTML = `
+                <div class="col-span-full flex flex-col items-center justify-center py-12 text-center text-slate-400">
+                    <i class="fa-solid fa-folder-open text-4xl mb-3 opacity-50"></i>
+                    <p>Belum ada project yang ditambahkan.</p>
+                </div>`;
+            } else {
+                data.projects.forEach(p => {
+                    projGrid.innerHTML += `
+                        <div onclick="openProject(${p.id})" class="group cursor-pointer">
+                            <div class="aspect-[4/3] bg-slate-100 mb-4 overflow-hidden rounded-xl relative">
+                                <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                    <span class="bg-white text-slate-900 text-xs font-bold px-4 py-2 rounded-full">View Details</span>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">${p.category}</span>
+                            <h3 class="text-xl font-bold text-slate-900 mt-1 group-hover:text-blue-600 transition">${p.title}</h3>
+                        </div>`;
+                });
+            }
+
+            const contactDisplay = document.getElementById('contact-display');
+            contactDisplay.innerHTML = `
+                <a href="mailto:${data.contact.email}" class="flex items-center gap-4 p-4 rounded-xl border border-slate-100 hover:border-slate-300 transition group bg-white">
+                    <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 group-hover:bg-slate-900 group-hover:text-white transition">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-bold text-slate-400 uppercase">Email</span>
+                        <span class="block font-bold text-slate-900">${data.contact.email}</span>
+                    </div>
+                </a>
+                <a href="https://wa.me/${data.contact.whatsapp}" target="_blank" class="flex items-center gap-4 p-4 rounded-xl border border-slate-100 hover:border-slate-300 transition group bg-white">
+                    <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-bold text-slate-400 uppercase">WhatsApp</span>
+                        <span class="block font-bold text-slate-900">+${data.contact.whatsapp}</span>
+                    </div>
+                </a>`;
+
+            const adminEls = document.querySelectorAll('.admin-only');
+            const adminPanel = document.getElementById('admin-panel');
+            const loginBtn = document.getElementById('btn-login-trigger');
+
+            adminEls.forEach(el => el.classList.toggle('hidden', !isAdmin));
+            adminPanel.classList.toggle('hidden', !isAdmin);
+            loginBtn.classList.toggle('hidden', isAdmin);
+        }
+
+        function updateActiveNav() {
+            const hash = window.location.hash || '#home';
+            
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+                if('#'+p.id === hash) p.classList.add('active');
+            });
+
+            document.querySelectorAll('.nav-item').forEach(n => {
+                n.classList.remove('active');
+                if(n.getAttribute('href') === hash) n.classList.add('active');
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(n => {
+                n.classList.remove('active', 'text-slate-900');
+                n.classList.add('text-slate-400');
+                if(n.getAttribute('href') === hash) {
+                    n.classList.add('active', 'text-slate-900');
+                    n.classList.remove('text-slate-400');
+                }
+            });
+
+            window.scrollTo(0,0);
+        }
+
+        function openModal(id) {
+            document.getElementById(`modal-${id}`).classList.remove('hidden');
+            document.getElementById(`modal-${id}`).classList.add('flex');
+        }
+
+        function closeModal(id) {
+            document.getElementById(`modal-${id}`).classList.add('hidden');
+            document.getElementById(`modal-${id}`).classList.remove('flex');
+        }
+
+        function showAlert(msg) {
+            document.getElementById('alert-msg').innerText = msg;
+            openModal('alert');
+        }
+
+        function confirmAction(msg, action) {
+            document.getElementById('confirm-msg').innerText = msg;
+            tempAction = action;
+            document.getElementById('confirm-yes').onclick = function() {
+                tempAction();
+                closeModal('confirm');
+            };
+            openModal('confirm');
+        }
+
+        function login() {
+            const u = document.getElementById('login-user').value;
+            const p = document.getElementById('login-pass').value;
+            if (u === 'admin' && p === 'fahri') {
+                isAdmin = true;
+                renderAll();
+                closeModal('login');
+                showAlert('Selamat datang, Admin!');
+            } else {
+                showAlert('Username atau Password salah');
+            }
+        }
+
+        function logout() {
+            isAdmin = false;
+            renderAll();
+        }
+
+        function openProject(id) {
+            currentId = id;
+            const p = data.projects.find(x => x.id === id);
+            document.getElementById('p-img-display').style.backgroundImage = `url('${p.image}')`;
+            document.getElementById('p-cat-display').innerText = p.category;
+            document.getElementById('p-title-display').innerText = p.title;
+            document.getElementById('p-desc-display').innerText = p.desc;
+            renderProjectDocs(p);
+            openModal('project');
+        }
+
+        function renderProjectDocs(p) {
+            const list = document.getElementById('p-docs-list');
+            list.innerHTML = '';
+            if(!p.docs || p.docs.length === 0) {
+                list.innerHTML = '<span class="text-sm text-slate-400 italic">Belum ada link/dokumentasi.</span>';
+                return;
+            }
+            p.docs.forEach((doc, i) => {
+                list.innerHTML += `
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-100 group">
+                        <a href="${doc.url}" target="_blank" class="flex items-center gap-3 text-sm font-medium text-slate-700 hover:text-blue-600">
+                            <i class="fa-solid fa-link text-slate-400"></i> ${doc.label}
+                        </a>
+                        ${isAdmin ? `<div class="flex gap-2 opacity-50 group-hover:opacity-100">
+                            <button onclick="openForm('editDoc', ${i})" class="text-blue-500 text-xs"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="confirmAction('Hapus link ini?', () => delDoc(${i}))" class="text-red-500 text-xs"><i class="fa-solid fa-trash"></i></button>
+                        </div>` : ''}
+                    </div>`;
+            });
+        }
+
+        function triggerUpload(type, index = null) {
+            uploadContext = { type: type, index: index };
+            document.getElementById('global-file-upload').click();
+        }
+
+        async function handleFileUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            if (file.size > 2 * 1024 * 1024) {
+                showAlert("Ukuran file maksimal 2MB!");
+                return;
+            }
+
+            const loadingMsg = document.createElement('div');
+            loadingMsg.id = 'upload-loading';
+            loadingMsg.className = 'fixed top-4 right-4 bg-blue-600 text-white px-4 py-2 rounded shadow-lg z-[100]';
+            loadingMsg.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Uploading...';
+            document.body.appendChild(loadingMsg);
+
+            try {
+                let imageUrl = "";
+                if (IMGBB_API_KEY) {
+                    const formData = new FormData();
+                    formData.append("image", file);
+                    const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: formData });
+                    const json = await res.json();
+                    if (json.success) imageUrl = json.data.url;
+                    else throw new Error("Upload failed");
+                } else {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    await new Promise(r => reader.onload = r);
+                    imageUrl = reader.result; 
+                }
+
+                if (uploadContext.type === 'project') {
+                    const p = data.projects.find(x => x.id === currentId);
+                    p.image = imageUrl;
+                    document.getElementById('p-img-display').style.backgroundImage = `url('${imageUrl}')`;
+                } 
+                else if (uploadContext.type === 'about') {
+                    data.profile.aboutImage = imageUrl;
+                }
+                else if (uploadContext.type === 'exp') {
+                    const exp = data.experience[uploadContext.index];
+                    if(!exp.images) exp.images = [];
+                    exp.images.push(imageUrl);
+                }
+
+                renderAll();
+                showAlert("Upload Berhasil!");
+            } catch (err) {
+                showAlert("Gagal upload gambar.");
+            } finally {
+                document.getElementById('upload-loading').remove();
+                input.value = "";
+            }
+        }
+
+        function openForm(type, index = null) {
+            const container = document.getElementById('form-inputs');
+            const title = document.getElementById('form-title');
+            const submitBtn = document.getElementById('form-submit');
+            container.innerHTML = '';
+            
+            let inputs = [];
+            let handler = () => {};
+
+            if (type === 'editBio') {
+                title.innerText = "Edit Header Bio";
+                inputs = [{ id: 'val1', placeholder: 'Bio Singkat', val: data.profile.bio, tag: 'textarea' }];
+                handler = () => { data.profile.bio = document.getElementById('val1').value; };
+            } else if (type === 'editAboutMe') {
+                title.innerText = "Edit Deskripsi Diri (Who am I)";
+                inputs = [{ id: 'val1', placeholder: 'Deskripsi lengkap...', val: data.profile.aboutMe, tag: 'textarea' }];
+                handler = () => { data.profile.aboutMe = document.getElementById('val1').value; };
+            } else if (type === 'editSkills') {
+                title.innerText = "Edit Skills (Pisahkan koma)";
+                inputs = [{ id: 'val1', placeholder: 'Photography, Web, dll', val: data.profile.skills.join(', '), tag: 'input' }];
+                handler = () => { data.profile.skills = document.getElementById('val1').value.split(',').map(s=>s.trim()); };
+            } else if (type === 'addExp') {
+                title.innerText = "Tambah Pengalaman";
+                inputs = [
+                    { id: 'val1', placeholder: 'Role / Posisi', val: '', tag: 'input' },
+                    { id: 'val2', placeholder: 'Perusahaan', val: '', tag: 'input' },
+                    { id: 'val3', placeholder: 'Deskripsi', val: '', tag: 'textarea' }
+                ];
+                handler = () => { data.experience.push({ role: document.getElementById('val1').value, company: document.getElementById('val2').value, desc: document.getElementById('val3').value, images: [] }); };
+            } else if (type === 'editExp') {
+                title.innerText = "Edit Pengalaman";
+                const d = data.experience[index];
+                inputs = [
+                    { id: 'val1', placeholder: 'Role', val: d.role, tag: 'input' },
+                    { id: 'val2', placeholder: 'Perusahaan', val: d.company, tag: 'input' },
+                    { id: 'val3', placeholder: 'Deskripsi', val: d.desc, tag: 'textarea' }
+                ];
+                handler = () => { d.role = document.getElementById('val1').value; d.company = document.getElementById('val2').value; d.desc = document.getElementById('val3').value; };
+            } else if (type === 'addEdu') {
+                title.innerText = "Tambah Pendidikan";
+                inputs = [
+                    { id: 'val1', placeholder: 'Sekolah / Kampus', val: '', tag: 'input' },
+                    { id: 'val2', placeholder: 'Tahun', val: '', tag: 'input' },
+                    { id: 'val3', placeholder: 'Jurusan', val: '', tag: 'input' }
+                ];
+                handler = () => { data.education.push({ school: document.getElementById('val1').value, year: document.getElementById('val2').value, detail: document.getElementById('val3').value }); };
+            } else if (type === 'editContact') {
+                title.innerText = "Edit Kontak";
+                inputs = [
+                    { id: 'val1', placeholder: 'Email', val: data.contact.email, tag: 'input' },
+                    { id: 'val2', placeholder: 'WhatsApp (628...)', val: data.contact.whatsapp, tag: 'input' }
+                ];
+                handler = () => { data.contact.email = document.getElementById('val1').value; data.contact.whatsapp = document.getElementById('val2').value; };
+            } else if (type === 'addProject') {
+                title.innerText = "Tambah Project Baru";
+                inputs = [
+                    { id: 'val1', placeholder: 'Judul Project', val: '', tag: 'input' },
+                    { id: 'val2', placeholder: 'Kategori', val: '', tag: 'input' },
+                    { id: 'val3', placeholder: 'Deskripsi', val: '', tag: 'textarea' }
+                ];
+                handler = () => { 
+                    data.projects.push({ 
+                        id: Date.now(), 
+                        title: document.getElementById('val1').value, 
+                        category: document.getElementById('val2').value, 
+                        desc: document.getElementById('val3').value, 
+                        image: "https://via.placeholder.com/800x600", docs: [] 
+                    }); 
+                };
+            } else if (type === 'editProjectMeta') {
+                title.innerText = "Edit Info Project";
+                const p = data.projects.find(x => x.id === currentId);
+                inputs = [
+                    { id: 'val1', placeholder: 'Judul', val: p.title, tag: 'input' },
+                    { id: 'val2', placeholder: 'Kategori', val: p.category, tag: 'input' },
+                    { id: 'val3', placeholder: 'Deskripsi', val: p.desc, tag: 'textarea' }
+                ];
+                handler = () => { p.title = document.getElementById('val1').value; p.category = document.getElementById('val2').value; p.desc = document.getElementById('val3').value; openProject(currentId); };
+            } else if (type === 'addDoc') {
+                title.innerText = "Tambah Link/Dokumen";
+                inputs = [
+                    { id: 'val1', placeholder: 'Label (Contoh: Live Demo)', val: '', tag: 'input' },
+                    { id: 'val2', placeholder: 'URL (https://...)', val: '', tag: 'input' }
+                ];
+                handler = () => { 
+                    const p = data.projects.find(x => x.id === currentId);
+                    p.docs.push({ label: document.getElementById('val1').value, url: document.getElementById('val2').value });
+                    openProject(currentId);
+                };
+            } else if (type === 'editDoc') {
+                title.innerText = "Edit Link";
+                const p = data.projects.find(x => x.id === currentId);
+                const d = p.docs[index];
+                inputs = [
+                    { id: 'val1', placeholder: 'Label', val: d.label, tag: 'input' },
+                    { id: 'val2', placeholder: 'URL', val: d.url, tag: 'input' }
+                ];
+                handler = () => { d.label = document.getElementById('val1').value; d.url = document.getElementById('val2').value; openProject(currentId); };
+            }
+
+            inputs.forEach(i => {
+                if(i.tag === 'textarea') container.innerHTML += `<textarea id="${i.id}" placeholder="${i.placeholder}" rows="4" class="input-clean">${i.val}</textarea>`;
+                else container.innerHTML += `<input type="text" id="${i.id}" placeholder="${i.placeholder}" value="${i.val}" class="input-clean">`;
+            });
+
+            submitBtn.onclick = () => {
+                handler();
+                renderAll();
+                closeModal('form');
+            };
+            openModal('form');
+        }
+
+        function delExp(i) { data.experience.splice(i, 1); renderAll(); }
+        function delExpImage(expIdx, imgIdx) { data.experience[expIdx].images.splice(imgIdx, 1); renderAll(); }
+        function delEdu(i) { data.education.splice(i, 1); renderAll(); }
+        function deleteProject() { data.projects = data.projects.filter(p => p.id !== currentId); closeModal('project'); renderAll(); }
+        function delDoc(i) { const p = data.projects.find(x => x.id === currentId); p.docs.splice(i, 1); openProject(currentId); }
+
+        function openLightboxFromProject() {
+            if(!currentId) return;
+            const p = data.projects.find(x => x.id === currentId);
+            if(p && p.image) {
+                openLightbox(p.image);
+            }
+        }
+
+        function openLightbox(url) {
+            if(!url) return;
+            document.getElementById('lightbox-img').src = url;
+            resetZoom();
+            openModal('lightbox');
+        }
+
+        function zoomImage(amount) {
+            scale += amount;
+            if (scale < 0.5) scale = 0.5;
+            if (scale > 5) scale = 5;
+            updateTransform();
+        }
+
+        function resetZoom() {
+            scale = 1;
+            pX = 0;
+            pY = 0;
+            updateTransform();
+        }
+
+        function updateTransform() {
+            const img = document.getElementById('lightbox-img');
+            img.style.transform = `translate(${pX}px, ${pY}px) scale(${scale})`;
+        }
+
+        function startDrag(e) {
+            if (scale <= 1) return;
+            isDragging = true;
+            startX = e.clientX - pX;
+            startY = e.clientY - pY;
+            document.getElementById('lightbox-container').style.cursor = 'grabbing';
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            pX = e.clientX - startX;
+            pY = e.clientY - startY;
+            updateTransform();
+        }
+
+        function endDrag() {
+            isDragging = false;
+            document.getElementById('lightbox-container').style.cursor = 'grab';
+        }
+
+        function handleTouchStart(e) {
+            if (e.touches.length === 1) {
+                startDrag(e.touches[0]);
+            }
+        }
+
+        function handleTouchMove(e) {
+            if (e.touches.length === 1) {
+                drag(e.touches[0]);
+            }
+        }
+
+        function handleWheel(e) {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -0.1 : 0.1;
+            zoomImage(delta);
+        }
+
+        window.addEventListener('load', loadData);
+        window.addEventListener('hashchange', updateActiveNav);
+    </script>
+</body>
+</html>
